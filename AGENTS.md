@@ -5,6 +5,7 @@
 - **Goal:** Build a personal portfolio website integrated with a self-hosted Learning Archive repository for YouTube data analytics content, research references, and line-by-line code breakdowns.
 - **Core Stack:** Next.js (App Router), Payload CMS v3.93.0 (Embedded Backend), PostgreSQL (Supabase), Tailwind CSS, Lucide Icons, TypeScript.
 - **Package Manager:** npm (always use `npm` commands, not yarn or pnpm).
+- **Supabase S3 Storage:** Configure `S3_BUCKET`, `S3_ENDPOINT`, `S3_REGION`, `S3_ACCESS_KEY_ID`, and `S3_SECRET_ACCESS_KEY` for persistent media storage in Vercel deployments.
 
 ## 2. Architecture & Codebase Rules
 - **Directory Structure:** Keep Payload collections inside `src/collections/`, shared components in `src/components/`, and frontend routes in `src/app/(frontend)/` (or existing Payload route group structure).
