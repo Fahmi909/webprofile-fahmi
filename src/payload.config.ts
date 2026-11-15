@@ -13,6 +13,11 @@ import { LearningArchive } from './collections/LearningArchive'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const s3Bucket = (process.env.S3_BUCKET || 'media').trim()
+const s3Endpoint = (process.env.S3_ENDPOINT || '').trim()
+const s3Region = (process.env.S3_REGION || '').trim()
+const s3AccessKeyId = (process.env.S3_ACCESS_KEY_ID || '').trim()
+const s3SecretAccessKey = (process.env.S3_SECRET_ACCESS_KEY || '').trim()
 
 export default buildConfig({
   admin: {
@@ -30,8 +35,9 @@ export default buildConfig({
   db: postgresAdapter({
     push: process.env.NODE_ENV !== 'production',
     pool: {
-      connectionString: process.env.DATABASE_URI || process.env.DATABASE_URL || '',
-      max: 5,
+      connectionString: process.env.DATABASE_URL || '',
+      max: 3,
+      idleTimeoutMillis: 10000,
     },
   }),
   sharp,
@@ -41,20 +47,19 @@ export default buildConfig({
         media: {
           disableLocalStorage: true,
           generateFileURL: ({ filename }) => {
-            const baseUrl = (process.env.S3_ENDPOINT || '').replace('/storage/v1/s3', '')
-            const bucket = process.env.S3_BUCKET || 'media'
-            return `${baseUrl}/storage/v1/object/public/${bucket}/${filename}`
+            const baseUrl = (s3Endpoint || '').replace('/storage/v1/s3', '')
+            return `${baseUrl}/storage/v1/object/public/${s3Bucket}/${filename}`
           },
         },
       },
-      bucket: process.env.S3_BUCKET || 'media',
+      bucket: s3Bucket,
       config: {
-        endpoint: process.env.S3_ENDPOINT,
-        region: process.env.S3_REGION,
+        endpoint: s3Endpoint,
+        region: s3Region,
         forcePathStyle: true,
         credentials: {
-          accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
-          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+          accessKeyId: s3AccessKeyId,
+          secretAccessKey: s3SecretAccessKey,
         },
       },
     }),
