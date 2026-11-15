@@ -69,6 +69,6 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "site_profile_skill_categories_tools" CASCADE;
   DROP TABLE "site_profile_skill_categories" CASCADE;
   DROP TABLE "site_profile" CASCADE;
-  ALTER TABLE "media" DROP COLUMN "_objectkey";
+  ADD COLUMN IF NOT EXISTS "_objectkey" varchar;
   DROP TYPE "public"."enum_site_profile_skill_categories_tools_icon_key";`)
 }
