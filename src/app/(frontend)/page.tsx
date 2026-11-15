@@ -48,11 +48,17 @@ type SkillTool = {
 
 export default async function HomePage() {
   const payload = await getPayload({ config: await config })
-  const [{ docs: projects }, { docs: learning }, profile] = await Promise.all([
+  const [{ docs: projects }, { docs: learning }] = await Promise.all([
     payload.find({ collection: 'projects', depth: 2, limit: 3, sort: '-publishedDate' }),
     payload.find({ collection: 'learning-archive', limit: 3, sort: '-publishedDate', where: { status: { equals: 'published' } } }),
-    payload.findGlobal({ slug: 'site-profile', depth: 2 }),
   ])
+
+  let profile: Partial<SiteProfile> = {}
+  try {
+    profile = await payload.findGlobal({ slug: 'site-profile', depth: 2 })
+  } catch (error) {
+    console.error('Unable to load site-profile global. Rendering default profile data.', error)
+  }
 
   const siteProfile = profile as SiteProfile
   const education = siteProfile.education?.length ? siteProfile.education : defaultEducation
