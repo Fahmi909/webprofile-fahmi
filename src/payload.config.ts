@@ -38,7 +38,14 @@ export default buildConfig({
   plugins: [
     s3Storage({
       collections: {
-        media: true,
+        media: {
+          disableLocalStorage: true,
+          generateFileURL: ({ filename }) => {
+            const baseUrl = (process.env.S3_ENDPOINT || '').replace('/storage/v1/s3', '')
+            const bucket = process.env.S3_BUCKET || 'media'
+            return `${baseUrl}/storage/v1/object/public/${bucket}/${filename}`
+          },
+        },
       },
       bucket: process.env.S3_BUCKET || 'media',
       config: {
