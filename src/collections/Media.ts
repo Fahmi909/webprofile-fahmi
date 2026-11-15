@@ -15,6 +15,19 @@ export const Media: CollectionConfig = {
       required: true,
     },
   ],
+  hooks: {
+    afterError: [
+      ({ error }) => ({
+        response: {
+          errors: [
+            {
+              message: error.message || 'Media upload failed.',
+            },
+          ],
+        },
+      }),
+    ],
+  },
   upload: {
     mimeTypes: ['image/*'],
   },

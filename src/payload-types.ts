@@ -91,8 +91,12 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    'site-profile': SiteProfile;
+  };
+  globalsSelect: {
+    'site-profile': SiteProfileSelect<false> | SiteProfileSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -452,6 +456,123 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-profile".
+ */
+export interface SiteProfile {
+  id: number;
+  greetingBadge?: string | null;
+  fullName?: string | null;
+  headline?: string | null;
+  bioParagraph1?: string | null;
+  bioParagraph2?: string | null;
+  /**
+   * Upload or replace the profile photo shown on the public homepage.
+   */
+  profilePhoto?: (number | null) | Media;
+  contacts?: {
+    linkedinUrl?: string | null;
+    /**
+     * Use international format, for example 628123456789.
+     */
+    whatsappNumber?: string | null;
+    instagramUrl?: string | null;
+    youtubeUrl?: string | null;
+    tiktokUrl?: string | null;
+    githubUrl?: string | null;
+    email?: string | null;
+  };
+  education?:
+    | {
+        period?: string | null;
+        institution?: string | null;
+        majorAndGpa?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  skillCategories?:
+    | {
+        categoryName: string;
+        tools?:
+          | {
+              name: string;
+              iconKey?:
+                | (
+                    | 'looker'
+                    | 'powerbi'
+                    | 'pandas'
+                    | 'matplotlib'
+                    | 'numpy'
+                    | 'seaborn'
+                    | 'mysql'
+                    | 'github'
+                    | 'git'
+                    | 'canva'
+                    | 'figma'
+                    | 'capcut'
+                    | 'excel'
+                    | 'python'
+                  )
+                | null;
+              customIcon?: (number | null) | Media;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-profile_select".
+ */
+export interface SiteProfileSelect<T extends boolean = true> {
+  greetingBadge?: T;
+  fullName?: T;
+  headline?: T;
+  bioParagraph1?: T;
+  bioParagraph2?: T;
+  profilePhoto?: T;
+  contacts?:
+    | T
+    | {
+        linkedinUrl?: T;
+        whatsappNumber?: T;
+        instagramUrl?: T;
+        youtubeUrl?: T;
+        tiktokUrl?: T;
+        githubUrl?: T;
+        email?: T;
+      };
+  education?:
+    | T
+    | {
+        period?: T;
+        institution?: T;
+        majorAndGpa?: T;
+        id?: T;
+      };
+  skillCategories?:
+    | T
+    | {
+        categoryName?: T;
+        tools?:
+          | T
+          | {
+              name?: T;
+              iconKey?: T;
+              customIcon?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -10,6 +10,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Projects } from './collections/Projects'
 import { LearningArchive } from './collections/LearningArchive'
+import { SiteProfile } from './globals/SiteProfile'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -27,6 +28,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Projects, LearningArchive],
+  globals: [SiteProfile],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -47,8 +49,12 @@ export default buildConfig({
         media: {
           disableLocalStorage: true,
           generateFileURL: ({ filename }) => {
-            const baseUrl = (s3Endpoint || '').replace('/storage/v1/s3', '')
-            return `${baseUrl}/storage/v1/object/public/${s3Bucket}/${filename}`
+            const rawEndpoint = (process.env.S3_ENDPOINT || '').trim()
+            const baseUrl = rawEndpoint
+              .replace('/storage/v1/s3', '')
+              .replace('.storage.supabase.co', '.supabase.co')
+            const bucket = (process.env.S3_BUCKET || 'media').trim()
+            return `${baseUrl}/storage/v1/object/public/${bucket}/${filename}`
           },
         },
       },
