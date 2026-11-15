@@ -1,0 +1,10 @@
+import Link from 'next/link'
+import ThemeToggle from './ThemeToggle'
+
+function SocialIcon({ label, href, children }: { label: string; href: string; children: React.ReactNode }) {
+  return <a aria-label={label} className="social-link" href={href} rel="noreferrer" target="_blank">{children}</a>
+}
+
+export default function Navbar() {
+  return <header className="site-header"><div className="shell nav-shell"><Link className="brand" href="/"><span className="brand-mark">FI</span><span>Fahmi <strong>Ibadrurochman</strong></span></Link><nav className="main-nav" aria-label="Main navigation"><Link href="/">Home</Link><Link href="/projects">Projects</Link><Link href="/learn">Learning Archive</Link></nav><div className="nav-tools"><div className="social-links"><SocialIcon href="https://github.com" label="GitHub"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.17-3.37-1.17-.46-1.15-1.11-1.46-1.11-1.46-.91-.62.07-.61.07-.61 1.01.07 1.54 1.04 1.54 1.04.9 1.53 2.35 1.09 2.92.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.99 1.04-2.69-.1-.26-.45-1.27.1-2.65 0 0 .85-.27 2.75 1.03A9.56 9.56 0 0 1 12 8c.85 0 1.71.12 2.51.35 1.9-1.3 2.75-1.03 2.75-1.03.55 1.38.2 2.39.1 2.65.65.7 1.04 1.6 1.04 2.69 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.86v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z" /></svg></SocialIcon><SocialIcon href="https://linkedin.com" label="LinkedIn"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 8.6H2V21h3.2V8.6ZM3.6 3A1.9 1.9 0 1 0 3.6 6.8 1.9 1.9 0 0 0 3.6 3ZM21 13.9c0-3.7-2-5.4-4.7-5.4-2.2 0-3.2 1.2-3.8 2v-1.9H9.3V21h3.2v-6.1c0-1.6.3-3.2 2.3-3.2 2 0 2 1.9 2 3.3V21H21v-7.1Z" /></svg></SocialIcon><SocialIcon href="https://youtube.com" label="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.6 7.2a2.8 2.8 0 0 0-2-2C17.8 4.7 12 4.7 12 4.7s-5.8 0-7.6.5a2.8 2.8 0 0 0-2 2A29 29 0 0 0 1.9 12a29 29 0 0 0 .5 4.8 2.8 2.8 0 0 0 2 2c1.8.5 7.6.5 7.6.5s5.8 0 7.6-.5a2.8 2.8 0 0 0 2-2 29 29 0 0 0 .5-4.8 29 29 0 0 0-.5-4.8ZM10 15.7V8.3l6 3.7-6 3.7Z" /></svg></SocialIcon></div><ThemeToggle /></div></div></header>
+}

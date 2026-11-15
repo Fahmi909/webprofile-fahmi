@@ -1,19 +1,18 @@
 import React from 'react'
+import ThemeProvider from '@/components/ThemeProvider'
 import './styles.css'
 
 export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+  description: 'Portfolio and learning archive of Fahmi Ibadrurochman, Information Systems Student & Data Analyst.',
+  title: 'Fahmi Ibadrurochman — Data Analyst',
 }
 
-export default async function RootLayout(props: { children: React.ReactNode }) {
+export default function RootLayout(props: { children: React.ReactNode }) {
   const { children } = props
 
   return (
-    <html lang="en">
-      <body>
-        <main>{children}</main>
-      </body>
+    <html lang="en" suppressHydrationWarning>
+      <body><ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>{children}</ThemeProvider></body>
     </html>
   )
 }

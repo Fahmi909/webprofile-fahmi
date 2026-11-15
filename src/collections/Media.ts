@@ -12,5 +12,7 @@ export const Media: CollectionConfig = {
       required: true,
     },
   ],
-  upload: true,
+  upload: {
+    staticDir: process.env.VERCEL === '1' ? '/tmp/media' : 'media',
+  },
 }
