@@ -1,4 +1,5 @@
 import React from 'react'
+import GlobalScrollAnimator from '@/components/GlobalScrollAnimator'
 import ThemeProvider from '@/components/ThemeProvider'
 import './styles.css'
 
@@ -12,7 +13,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="en" suppressHydrationWarning>
-      <body><ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>{children}</ThemeProvider></body>
+      <body><ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange><GlobalScrollAnimator />{children}</ThemeProvider></body>
     </html>
   )
 }
